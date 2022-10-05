@@ -317,6 +317,26 @@ It also makes a qualifier function returns the input without changes if the
 input is an instance of :class:`raw`.
 '''
 
+def format_date(date: datetime,
+                strf: str = "%d-%b-%Y 00:00:00",
+                wrapper: str = "to_date('{}','DD-MON-RRRR HH24:MI:SS')") -> str:  # noqa: E501
+    '''This is a static method to format the datetime into a string.
+
+    Args:
+        date (datetime.datetime): Date to format.
+        strf (str): String format to use as format.
+        wrapper (str): Useful to wrap the result.
+
+    Returns:
+        str: Formated date
+    '''
+    _formated_date = date.strftime(strf).upper()
+
+    if wrapper:
+        _formated_date = wrapper.format(_formated_date)
+
+    return _formated_date
+
 @qualifier
 def value(x):
     '''A qualifier function which formats Python object as SQL value.
@@ -356,7 +376,7 @@ def value(x):
     elif isinstance(x, compat.string_types):
         return "'%s'" % escape(x)
     elif isinstance(x, (datetime, date, time)):
-        return "'%s'" % x
+        return format_date(x)
     elif isinstance(x, bool):
         return stringify_bool(x)
     else:
