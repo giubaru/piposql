@@ -184,7 +184,7 @@ def delimit_identifier(s):
     .. versionchanged:: 0.10
         It's not disableable anymore. Use :class:`raw` instead.
     '''
-    return '"%s"' % s
+    return '%s' % s
 
 std_delimit_identifier = delimit_identifier
 
