@@ -686,6 +686,8 @@ def _build_condition(x, key_qualifier=identifier, value_qualifier=value):
 
             if not op:
                 # split the op out
+                if k is None:
+                    continue
                 k, _, op = k.partition(' ')
 
             if not op:
