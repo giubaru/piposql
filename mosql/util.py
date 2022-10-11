@@ -668,7 +668,6 @@ def _to_pairs(x):
 def _build_condition(x, key_qualifier=identifier, value_qualifier=value):
 
     ps = _to_pairs(x)
-
     pieces = []
 
     for k, v in ps:
@@ -686,8 +685,6 @@ def _build_condition(x, key_qualifier=identifier, value_qualifier=value):
 
             if not op:
                 # split the op out
-                if k is None:
-                    continue
                 k, _, op = k.partition(' ')
 
             if not op:
@@ -1116,7 +1113,7 @@ class Statement(object):
                 if k not in all_possibles
             )))
 
-        return ' '.join(pieces)
+        return ' '.join(pieces) + ';'
 
     def __repr__(self):
         return 'Statement(%r)' % self.clauses
